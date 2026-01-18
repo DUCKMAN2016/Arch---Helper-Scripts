@@ -6,15 +6,13 @@ A collection of useful scripts for KDE Plasma desktop management and automation.
 
 ### 🖥️ Desktop Peek Suite
 Clean up your desktop instantly with one click! Perfect for presentations, screen recordings, or just a tidy workspace.
-
-- **One-click toggle**: Hide/show desktop icons and minimize/restore all windows
-- **Visual feedback**: Desktop notifications show current state
-- **Multi-monitor support**: Works across all connected displays
-- **Safe operation**: Files are moved to hidden directory, never deleted
+- One-click toggle: Hide/show desktop icons and minimize/restore all windows
+- Visual feedback: Desktop notifications show current state
+- Multi-monitor support: Works across all connected displays
+- Safe operation: Files are moved to hidden directory, never deleted
 
 ### 🎛️ System Control Panel
 A floating GUI panel for quick access to common system controls:
-
 - Power management (shutdown, reboot, logout)
 - Desktop controls (toggle icons, refresh, peek mode)
 - Clean, intuitive interface with emoji icons
@@ -25,52 +23,57 @@ A floating GUI panel for quick access to common system controls:
 - **Window Center**: Center windows (great for gaming/emulators)
 - **Icon Toggle**: Show/hide desktop icons
 - **Desktop Refresh**: Refresh the desktop display
+- **App Toggle**: Minimize/restore all open applications
 
 ## 📦 Installation
 
 ### Quick Install
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/kde-desktop-tools.git
-cd kde-desktop-tools
+git clone https://github.com/DUCKMAN2016/Arch---Helper-Scripts.git
+cd Arch---Helper-Scripts
 
-# Make all scripts executable
-chmod +x */*.sh
-
-# Run the installer (optional)
+# Run the installer
 ./install.sh
 ```
 
 ### Manual Install
-1. Download the scripts you want
-2. Make them executable: `chmod +x script_name.sh`
-3. Run them from your terminal or create desktop launchers
+```bash
+# Copy scripts to local bin
+mkdir -p ~/.local/bin/kde-desktop-tools
+cp -r * ~/.local/bin/kde-desktop-tools/
+
+# Make scripts executable
+chmod +x ~/.local/bin/kde-desktop-tools/**/*.sh
+
+# Add to PATH (add to ~/.bashrc or ~/.zshrc)
+export PATH="$HOME/.local/bin/kde-desktop-tools:$PATH"
+```
 
 ## 🎯 Usage
 
 ### Desktop Peek (Most Popular)
 ```bash
-# One-click desktop cleanup with notifications
+# One-click desktop cleanup
 ./desktop-peek/desktop_peek_unified.sh
 
-# Or use individual scripts
-./desktop-peek/hide_desktop_icons.sh
-./desktop-peek/show_desktop_icons.sh
-./desktop-peek/toggle_desktop_peek.sh
+# Or use the desktop launcher after installation
 ```
 
 ### System Control Panel
 ```bash
+# Launch the GUI control panel
 ./system-controls/system_control_panel.sh
+
+# Customize paths in the script to match your setup
 ```
-*Note: You'll need to customize the paths in this script for your setup.*
 
 ### Utilities
 ```bash
-# Switch audio output
+# Switch audio outputs
 ./utilities/switch-audio.sh
 
-# Center a window (useful for games/emulators)
+# Center a window (customize WINDOW_NAME)
 ./utilities/center-mame-window.sh
 
 # Toggle desktop icons
@@ -78,59 +81,118 @@ chmod +x */*.sh
 
 # Refresh desktop
 ./utilities/refresh-desktop.sh
+
+# Toggle open applications
+./utilities/toggle_open_apps.sh
 ```
 
 ## 🔧 Requirements
 
-- **KDE Plasma** (tested on Plasma 6.x)
-- **Bash** shell
-- **Standard utilities**: `wmctrl`, `xdotool`, `notify-send`, `kdialog`
+### System Requirements
+- KDE Plasma desktop environment
+- Linux/Unix-based operating system
+- Bash shell
 
-Install dependencies:
+### Dependencies
+The installer will check for these dependencies:
+- `wmctrl` - Window management
+- `xdotool` - Window automation
+- `notify-send` - Desktop notifications
+- `kdialog` - KDE dialogs
+
+**Install dependencies on Arch/CachyOS:**
 ```bash
-# Ubuntu/Debian
-sudo apt install wmctrl xdotool libnotify-bin kdialog
-
-# Arch/CachyOS
 sudo pacman -S wmctrl xdotool libnotify kde-cli-tools
-
-# Fedora
-sudo dnf install wmctrl xdotool libnotify kde-cli-tools
 ```
 
-## 🎨 Desktop Integration
-
-### Create Desktop Launchers
-1. Right-click your desktop → "Create New → Link to Application"
-2. Set the command to the script path
-3. Choose an icon and name
-4. Drag to your taskbar for quick access
-
-### Keyboard Shortcuts
-1. System Settings → Shortcuts → Custom Shortcuts
-2. Add new shortcuts pointing to your favorite scripts
-3. Assign key combinations
+**Install dependencies on Ubuntu/Debian:**
+```bash
+sudo apt install wmctrl xdotool libnotify-bin kde-cli-tools
+```
 
 ## 📁 Repository Structure
 
 ```
 kde-desktop-tools/
-├── desktop-peek/          # Desktop cleanup tools
-│   ├── desktop_peek_unified.sh    # ⭐ One-click toggle (recommended)
-│   ├── toggle_desktop_peek.sh     # Toggle without notifications
-│   ├── hide_desktop_icons.sh      # Hide icons only
-│   └── show_desktop_icons.sh      # Show icons only
-├── system-controls/       # GUI control panel
-│   └── system_control_panel.sh    # Floating control center
-├── utilities/            # Helper scripts
+├── desktop-peek/              # Desktop cleanup tools
+│   └── desktop_peek_unified.sh    # ⭐ One-click toggle (recommended)
+├── system-controls/           # GUI control panel
+│   └── system_control_panel.sh     # Floating control center
+├── utilities/                 # Helper scripts
 │   ├── switch-audio.sh            # Audio output switcher
 │   ├── center-mame-window.sh      # Window positioning
 │   ├── toggle_desktop_icons.sh    # Icon visibility toggle
-│   └── refresh-desktop.sh         # Desktop refresh
-├── install.sh           # Automated installer
-├── README.md           # This file
-└── LICENSE             # MIT License
+│   ├── refresh-desktop.sh         # Desktop refresh
+│   └── toggle_open_apps.sh        # Window minimizer
+├── install.sh                 # Automated installer
+├── README.md                  # This file
+└── LICENSE                    # MIT License
 ```
+
+## 🎨 Customization
+
+### Audio Switcher
+Edit `utilities/switch-audio.sh` to add your specific audio devices:
+```bash
+# Run 'pactl list sinks short' to get your device names
+# Replace the example sink names with your actual devices
+```
+
+### Window Center
+Edit `utilities/center-mame-window.sh`:
+```bash
+# Set WINDOW_NAME to match your target window
+WINDOW_NAME="YourWindowName"  # e.g., "MAME", "DOSBox", "RetroArch"
+```
+
+### System Control Panel
+Edit `system-controls/system_control_panel.sh`:
+```bash
+# Update the TODO sections with your actual script paths
+# Example: ~/Scripts/toggle_open_apps.sh
+```
+
+## 🐛 Troubleshooting
+
+### Scripts Not Working
+1. **Check permissions**: Make sure scripts are executable (`chmod +x script.sh`)
+2. **Check dependencies**: Run the installer to verify all dependencies are installed
+3. **Check KDE version**: These scripts are tested with KDE Plasma 5.x and 6.x
+
+### Desktop Peek Issues
+1. **Icons not hiding**: Check that your Desktop folder is at `~/Desktop`
+2. **Windows not minimizing**: Ensure `xdotool` is installed and working
+3. **No notifications**: Install `libnotify` for desktop notifications
+
+### Audio Switcher Problems
+1. **Sink not found**: Run `pactl list sinks short` and update script with your sink names
+2. **No audio test**: Ensure `/usr/share/sounds/freedesktop/stereo/bell.oga` exists
+
+### Window Center Issues
+1. **Window not found**: Update `WINDOW_NAME` variable to match your target window
+2. **Permission denied**: Make sure script can access X11 display
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. **Test thoroughly** on multiple systems
+2. **Remove personal information** from paths and configurations
+3. **Document changes** in script comments
+4. **Follow existing style** (colored output, error handling)
+5. **Include help documentation**
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🌟 Show Your Support
+
+If you find these tools helpful:
+- ⭐ Star this repository
+- 🐛 Report issues or feature requests
+- 🔄 Fork and contribute improvements
+- 📢 Share with others who might benefit
 
 ## 🎬 Perfect For
 
@@ -140,54 +202,6 @@ kde-desktop-tools/
 - **Customization**: Personalize your KDE experience
 - **Gaming**: Window positioning and desktop management
 
-## 🔧 Customization
-
-### Desktop Peek
-- **Change hidden directory**: Edit `HIDDEN_DIR` variable
-- **Modify notifications**: Change `notify-send` commands
-- **Keyboard shortcut**: Replace `Super+d` with your preferred shortcut
-
-### System Control Panel
-- **Add custom actions**: Edit the menu options in the script
-- **Change commands**: Replace TODO comments with your preferred commands
-- **Modify appearance**: Adjust `--geometry` and menu items
-
-## 🐛 Troubleshooting
-
-### Scripts Not Working
-1. Ensure scripts are executable: `chmod +x script_name.sh`
-2. Check dependencies are installed
-3. Run as regular user (not root)
-
-### Desktop Peek Issues
-- **Icons not hiding**: Check that `~/Desktop` exists
-- **Windows not minimizing**: Verify `Super+d` shortcut is assigned in KDE settings
-- **Notifications not showing**: Install `libnotify-bin` or equivalent
-
-### System Control Panel
-- **Window not appearing**: Install `kdialog`
-- **Commands not working**: Customize the TODO sections with your preferred commands
-
-## 🤝 Contributing
-
-Feel free to:
-- Report issues
-- Suggest improvements
-- Submit pull requests
-- Share your customizations
-
-## 📄 License
-
-MIT License - Feel free to use, modify, and distribute these scripts.
-
-## 🌟 Show Your Support
-
-If you find these tools useful:
-- ⭐ Star this repository
-- 🐛 Report issues
-- 💡 Suggest features
-- 🔄 Share with others
-
 ---
 
-**Made with ❤️ for the KDE Plasma community**
+*Made with ❤️ for the KDE Plasma community*

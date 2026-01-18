@@ -1,49 +1,29 @@
 #!/bin/bash
 
-# Make all desktop files executable
-chmod +x ~/Desktop/*.desktop 2>/dev/null
-
-# Kill any existing plasma processes
-kquitapp6 plasmashell 2>/dev/null
-sleep 1
-killall plasmashell 2>/dev/null
-sleep 2
-
-# Try multiple methods to restart plasma
-echo "Starting Plasma with method 1..."
-DISPLAY=:0 nohup plasmashell > /dev/null 2>&1 &
-sleep 3
-
-# Check if plasma is running
-if pgrep plasmashell > /dev/null; then
-    echo "✅ Plasma started successfully!"
-else
-    echo "❌ First attempt failed, trying method 2..."
-    DISPLAY=:0 nohup kstart6 plasmashell > /dev/null 2>&1 &
-    sleep 3
-    
-    # Check again
-    if pgrep plasmashell > /dev/null; then
-        echo "✅ Plasma started successfully with method 2!"
-    else
-        echo "❌ Second attempt failed, trying method 3..."
-        DISPLAY=:0 nohup dbus-launch plasmashell > /dev/null 2>&1 &
-        sleep 3
-        
-        # Final check
-        if pgrep plasmashell > /dev/null; then
-            echo "✅ Plasma started successfully with method 3!"
-        else
-            echo "❌ All attempts to restart Plasma failed."
-            echo "You may need to log out and log back in."
-        fi
-    fi
+if [ "$EUID" -eq 0 ]; then
+    echo "Error: This script should not be run as root. Run it as your regular user."
+    exit 1
 fi
 
-echo "Desktop refresh completed."
+# Refresh desktop display
+echo "Refreshing desktop..."
 
-# Show a notification
-if command -v notify-send > /dev/null; then
-    notify-send -a "Desktop Refresh" "Plasma has been refreshed" -i "view-refresh"
-fi
+# Method 1: KDE Plasma refresh
+qdbus org.kde.plasmashell /PlasmaShell evaluateScript "
+var allDesktops = desktops();
+for (i=0;i<allDesktops.length;i++) {
+    d = allDesktops[i];
+    d.reloadConfig();
+}
+" 2>/dev/null
 
+# Method 2: Force desktop refresh
+kquitapp5 plasmashell 2>/dev/null && sleep 1 && plasmashell & 2>/dev/null
+
+# Method 3: Update desktop database
+update-desktop-database ~/.local/share/applications 2>/dev/null
+
+# Method 4: Refresh desktop icons
+dbus-send --type=method_call --dest=org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.showInteractiveConsole 2>/dev/null
+
+echo "Desktop refresh completed!"

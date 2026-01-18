@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # System Control Panel - Creates a persistent floating window with system controls
-# This is a template - users need to customize paths marked with TODO
 if [ "$EUID" -eq 0 ]; then
     echo "Error: This script should not be run as root. Run it as your regular user."
     exit 1
@@ -45,9 +44,8 @@ while true; do
     # Execute based on selection
     case "$RESULT" in
         "logout")
-            # TODO: Replace with your logout script or command
-            # Example: qdbus org.kde.ksmserver /KSMServer logout 0 0 0
-            echo "Logout action - customize this command"
+            # TODO: Replace with your logout command
+            qdbus org.kde.ksmserver /KSMServer logout 0 0 0 2>/dev/null || echo "Logout command not available"
             sleep 3
             ;;
         "poweroff")
@@ -58,24 +56,20 @@ while true; do
             ;;
         "toggleapps")
             # TODO: Replace with path to your toggle_open_apps.sh
-            # Example: ~/Scripts/toggle_open_apps.sh
             echo "Toggle apps - customize this command"
             sleep 2
             ;;
         "toggleicons")
             # TODO: Replace with path to your toggle_desktop_icons.sh
-            # Example: ~/Scripts/toggle_desktop_icons.sh
             echo "Toggle icons - customize this command"
             sleep 2
             ;;
         "refresh")
             # TODO: Replace with path to your refresh-desktop.sh
-            # Example: ~/Scripts/refresh-desktop.sh
             echo "Refresh desktop - customize this command"
             ;;
         "desktoppeek")
             # TODO: Replace with path to your desktop_peek script
-            # Example: ~/Scripts/desktop_peek_unified.sh
             echo "Desktop peek - customize this command"
             sleep 2
             ;;

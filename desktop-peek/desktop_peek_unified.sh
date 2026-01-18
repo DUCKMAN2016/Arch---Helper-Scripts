@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Unified Desktop Peek - Single click to toggle everything
 # Combines icon hiding with KDE's built-in Peek at Desktop
 
