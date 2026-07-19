@@ -94,11 +94,13 @@ export PATH="$HOME/.local/bin/kde-desktop-tools:$PATH"
 - Bash shell
 
 ### Dependencies
-The installer will check for these dependencies:
+The installer automatically checks for these dependencies:
 - `wmctrl` - Window management
 - `xdotool` - Window automation
-- `notify-send` - Desktop notifications
+- `notify-send` - Desktop notifications (sends installation status alerts)
 - `kdialog` - KDE dialogs
+
+Upon completion, the installer will send a system desktop notification (using `notify-send` if available) informing you whether the installation succeeded fully or if there are missing dependencies.
 
 **Install dependencies on Arch/CachyOS:**
 ```bash
