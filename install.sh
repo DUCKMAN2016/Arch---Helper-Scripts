@@ -15,9 +15,13 @@ echo "🚀 Installing KDE Desktop Tools..."
 mkdir -p "$INSTALL_DIR"
 mkdir -p "$DESKTOP_DIR"
 
-# Copy scripts to installation directory
-echo "📁 Installing scripts..."
-cp -r "$SCRIPT_DIR"/* "$INSTALL_DIR/"
+# Copy scripts to installation directory if not already there
+if [ "$SCRIPT_DIR" != "$INSTALL_DIR" ]; then
+    echo "📁 Installing scripts..."
+    cp -r "$SCRIPT_DIR"/* "$INSTALL_DIR/"
+else
+    echo "📁 Scripts already in destination directory, skipping copy."
+fi
 
 # Make all scripts executable
 echo "🔧 Making scripts executable..."
@@ -87,6 +91,15 @@ if [ ${#MISSING_DEPS[@]} -gt 0 ]; then
     echo "  Fedora: sudo dnf install ${MISSING_DEPS[*]}"
 else
     echo "✅ All dependencies found!"
+fi
+
+# Send desktop notification if notify-send is available
+if command -v notify-send &> /dev/null; then
+    if [ ${#MISSING_DEPS[@]} -gt 0 ]; then
+        notify-send -u critical -i dialog-warning "KDE Desktop Tools" "Installed with missing dependencies: ${MISSING_DEPS[*]}"
+    else
+        notify-send -i dialog-information "KDE Desktop Tools" "Installation completed successfully!"
+    fi
 fi
 
 echo ""

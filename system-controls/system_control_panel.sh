@@ -55,23 +55,16 @@ while true; do
             reboot &
             ;;
         "toggleapps")
-            # TODO: Replace with path to your toggle_open_apps.sh
-            echo "Toggle apps - customize this command"
-            sleep 2
+            "$HOME/.local/bin/kde-desktop-tools/utilities/toggle_open_apps.sh"
             ;;
         "toggleicons")
-            # TODO: Replace with path to your toggle_desktop_icons.sh
-            echo "Toggle icons - customize this command"
-            sleep 2
+            "$HOME/.local/bin/kde-desktop-tools/utilities/toggle_desktop_icons.sh"
             ;;
         "refresh")
-            # TODO: Replace with path to your refresh-desktop.sh
-            echo "Refresh desktop - customize this command"
+            "$HOME/.local/bin/kde-desktop-tools/utilities/refresh-desktop.sh"
             ;;
         "desktoppeek")
-            # TODO: Replace with path to your desktop_peek script
-            echo "Desktop peek - customize this command"
-            sleep 2
+            "$HOME/.local/bin/kde-desktop-tools/desktop-peek/desktop_peek_unified.sh"
             ;;
         "exit")
             echo "Exiting System Control Panel"
