@@ -86,6 +86,21 @@ export PATH="$HOME/.local/bin/kde-desktop-tools:$PATH"
 ./utilities/toggle_open_apps.sh
 ```
 
+## 🖱️ Context Menu Integration
+
+You can integrate these desktop commands directly into your system's right-click context menu by running:
+```bash
+./add-to-context-menu.sh
+```
+
+### ⚠️ Important Note on KDE Plasma Behavior:
+* **Dolphin & Desktop Files/Folders**: The commands will appear under a grouped submenu called **"KDE Desktop Tools"** when you right-click any file, folder, or directory in Dolphin or on your desktop.
+* **Empty Desktop Space**: Due to KDE Plasma design limits, custom actions **cannot** be injected into the context menu of the empty desktop background. 
+* **Workarounds**:
+  1. Right-click *any* existing file or icon on your desktop to access the menu.
+  2. Launch the **System Control Panel** as a floating menu (search for it in your application launcher or pin it to your taskbar).
+  3. Map global keyboard shortcuts via **System Settings > Shortcuts** pointing directly to the scripts (e.g., `~/.local/bin/kde-desktop-tools/desktop-peek/desktop_peek_unified.sh`).
+
 ## 🔧 Requirements
 
 ### System Requirements
